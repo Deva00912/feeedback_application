@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback Form</title>
+    <style>
+        /* CSS Styles */
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .rating-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .rating-option {
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .rating-option input {
+            display: none;
+        }
+        
+        .rating-option label {
+            display: block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: #eee;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .rating-option input:checked + label {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .rating-container {
+                flex-wrap: wrap;
+            }
+            
+            .rating-option {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Feedback Form</h1>
+        
+        <div class="success-message" id="successMessage">
+            Thank you for your feedback! We appreciate your time.
+        </div>
+        
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name">
+                <div class="error" id="nameError">Please enter your name</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <div class="error" id="emailError">Please enter a valid email address</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="feedbackType">Feedback Type</label>
+                <select id="feedbackType" name="feedbackType">
+                    <option value="">Select feedback type</option>
+                    <option value="suggestion">Suggestion</option>
+                    <option value="complaint">Complaint</option>
+                    <option value="praise">Praise</option>
+                    <option value="question">Question</option>
+                </select>
+                <div class="error" id="typeError">Please select a feedback type</div>
+            </div>
+            
+            <div class="form-group">
+                <label>How would you rate your experience?</label>
+                <div class="rating-container">
+                    <div class="rating-option">
+                        <input type="radio" id="rating1" name="rating" value="1">
+                        <label for="rating1">1</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating2" name="rating" value="2">
+                        <label for="rating2">2</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating3" name="rating" value="3">
+                        <label for="rating3">3</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating4" name="rating" value="4">
+                        <label for="rating4">4</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating5" name="rating" value="5">
+                        <label for="rating5">5</label>
+                    </div>
+                </div>
+                <div class="error" id="ratingError">Please select a rating</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="comments">Your Feedback</label>
+                <textarea id="comments" name="comments" placeholder="Please share your feedback here..."></textarea>
+                <div class="error" id="commentsError">Please enter your feedback</div>
+            </div>
+            
+            <button type="submit" id="submitBtn">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript for form validation and submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('feedbackForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset error messages
+                document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+                
+                // Validate form
+                let isValid = true;
+                
+                // Name validation
+                const name = document.getElementById('name').value.trim();
+                if (name === '') {
+                    document.getElementById('nameError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Email validation
+                const email = document.getElementById('email').value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('emailError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Feedback type validation
+                const feedbackType = document.getElementById('feedbackType').value;
+                if (feedbackType === '') {
+                    document.getElementById('typeError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Rating validation
+                const rating = document.querySelector('input[name="rating"]:checked');
+                if (!rating) {
+                    document.getElementById('ratingError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Comments validation
+                const comments = document.getElementById('comments').value.trim();
+                if (comments === '') {
+                    document.getElementById('commentsError').style.display = 'block';
+                    isValid = false;
+                }
+                
+               // Replace the form submission part in your original HTML with this:
+              if (isValid) {
+                  const formData = {
+                      name,
+                      email,
+                      feedbackType,
+                      rating: rating.value,
+                      comments
+                  };
+              
+                  try {
+                      const response = await fetch('http://localhost:3000/api/feedback', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify(formData)
+                      });
+              
+                      if (response.ok) {
+                          form.style.display = 'none';
+                          successMessage.style.display = 'block';
+                      } else {
+                          const errorData = await response.json();
+                          alert(`Error: ${errorData.error || 'Failed to submit feedback'}`);
+                      }
+                  } catch (error) {
+                      console.error('Error:', error);
+                      alert('Failed to submit feedback. Please try again.');
+                  }
+              }
+            });
+            
+            // Rating hover effect
+            const ratingLabels = document.querySelectorAll('.rating-option label');
+            ratingLabels.forEach(label => {
+                label.addEventListener('mouseover', function() {
+                    const value = parseInt(this.textContent);
+                    highlightRatings(value);
+                });
+                
+                label.addEventListener('mouseout', function() {
+                    const checked = document.querySelector('input[name="rating"]:checked');
+                    if (checked) {
+                        highlightRatings(parseInt(checked.value));
+                    } else {
+                        resetRatingColors();
+                    }
+                });
+            });
+            
+            function highlightRatings(upTo) {
+                resetRatingColors();
+                for (let i = 1; i <= upTo; i++) {
+                    const label = document.querySelector(`label[for="rating${i}"]`);
+                    label.style.backgroundColor = '#3498db';
+                    label.style.color = 'white';
+                }
+            }
+            
+            function resetRatingColors() {
+                ratingLabels.forEach(label => {
+                    const input = document.getElementById(label.htmlFor);
+                    if (!input.checked) {
+                        label.style.backgroundColor = '#eee';
+                        label.style.color = '#333';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
