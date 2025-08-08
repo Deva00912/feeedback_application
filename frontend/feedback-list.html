@@ -168,7 +168,7 @@
             // Fetch feedback data from backend
             async function fetchFeedback() {
                 try {
-                    const response = await fetch(`${process.env.baseUrl}`);
+                    const response = await fetch("https://feeedback-application.onrender.com/api/feedback");
                     
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
