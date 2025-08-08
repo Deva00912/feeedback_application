@@ -250,8 +250,6 @@
         const form = document.getElementById("feedbackForm");
         const successMessage = document.getElementById("successMessage");
 
-        console.log({env : process?.env})
-
         form.addEventListener("submit", async function (e) {
           e.preventDefault();
 
@@ -311,7 +309,7 @@
 
             try {
               const response = await fetch(
-                `${process.env.FB_BACKEND_API_URL}`,
+                "https://feeedback-application.onrender.com/api/feedback",
                 {
                   method: "POST",
                   headers: {
