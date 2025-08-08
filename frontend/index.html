@@ -231,6 +231,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('feedbackForm');
             const successMessage = document.getElementById('successMessage');
+
+            console.log({env : process.env});
             
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -288,7 +290,7 @@
                   };
               
                   try {
-                      const response = await fetch('http://localhost:3000/api/feedback', {
+                      const response = await fetch(`${process.env?.baseUrl}`, {
                           method: 'POST',
                           headers: {
                               'Content-Type': 'application/json',
