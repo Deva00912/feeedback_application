@@ -168,7 +168,7 @@
             // Fetch feedback data from backend
             async function fetchFeedback() {
                 try {
-                    const response = await fetch('http://localhost:3000/api/feedback');
+                    const response = await fetch(`${process.env.baseUrl}`);
                     
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
